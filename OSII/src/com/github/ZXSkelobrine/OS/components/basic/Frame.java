@@ -39,48 +39,69 @@ public class Frame extends JComponent {
 		super.paintComponent(g);
 	}
 
+	/**
+	 * This adds an icon to the desktop
+	 * 
+	 * @param icon
+	 *            - The icon to add
+	 */
 	public synchronized void addIcon(Icon icon) {
 		desktopIconNames.add(icon.getName());
 		desktopIcons.add(icon);
 	}
 
+	/**
+	 * This removes an icon from the desktop
+	 * 
+	 * @param icon
+	 *            - The icon to remove
+	 */
 	public synchronized void removeIcon(Icon icon) {
 		desktopIconNames.remove(icon.getName());
 		desktopIcons.remove(icon);
 	}
 
+	/**
+	 * This adds an window to the frame
+	 * 
+	 * @param window
+	 *            - The window to add
+	 */
 	public synchronized void addWindow(Window window) {
 		openWindowNames.add(window.getTitle());
 		openWindows.add(window);
 	}
 
+	/**
+	 * This removes an window from the frame
+	 * 
+	 * @param window
+	 *            - The window to remove
+	 */
 	public synchronized void removeWindow(Window window) {
 		openWindowNames.remove(window.getTitle());
 		openWindows.remove(window);
 	}
 
+	/**
+	 * This gets a window from the title.
+	 * 
+	 * @param title
+	 *            - The title to get the window from.
+	 * @return Window - The window
+	 */
 	public synchronized Window getWindow(String title) {
 		return openWindows.get(openWindowNames.indexOf(title));
 	}
 
+	/**
+	 * This gets a icon from the title.
+	 * 
+	 * @param name
+	 *            - The name to get the icon from.
+	 * @return Icon - The icon
+	 */
 	public synchronized Icon getIcon(String name) {
 		return desktopIcons.get(desktopIconNames.indexOf(name));
-	}
-
-	public synchronized void start() {
-		Thread t = new Thread() {
-			@Override
-			public void run() {
-				while (true) {
-					repaint();
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		};
-		t.start();
 	}
 }

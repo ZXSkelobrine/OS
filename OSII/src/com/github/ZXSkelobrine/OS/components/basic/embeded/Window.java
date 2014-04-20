@@ -13,6 +13,7 @@ import java.util.List;
 import com.github.ZXSkelobrine.OS.components.basic.Component;
 import com.github.ZXSkelobrine.OS.components.basic.embeded.inner.Button;
 import com.github.ZXSkelobrine.OS.misc.SystemSettings;
+import com.github.ZXSkelobrine.OS.misc.Unimplimented;
 import com.github.ZXSkelobrine.OS.variables.Coordinate;
 import com.github.ZXSkelobrine.OS.variables.Themes;
 
@@ -48,82 +49,200 @@ public class Window extends Component {
 		parent.closeEvent();
 	}
 
+	/**
+	 * This returns the title.
+	 * 
+	 * @return {@link String} - the title.
+	 */
 	public String getTitle() {
 		return title;
 	}
 
+	/**
+	 * This sets the title.
+	 * 
+	 * @param title
+	 *            - The title to set.
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
+	/**
+	 * This returns whether the window can minimise.
+	 * 
+	 * @return {@link Boolean} - whether the window can minimise.
+	 */
+	@Unimplimented
 	public boolean canMinimise() {
 		return canMinimise;
 	}
 
+	/**
+	 * This sets whether the window can minimise.
+	 * 
+	 * @param canMinimise
+	 *            - The new setting.
+	 */
+	@Unimplimented
 	public void setCanMinimise(boolean canMinimise) {
 		this.canMinimise = canMinimise;
 	}
 
+	/**
+	 * This returns whether the window can maximise.
+	 * 
+	 * @return {@link Boolean} - whether the window can maximise.
+	 */
+	@Unimplimented
 	public boolean canMaximise() {
 		return canMaximise;
 	}
 
+	/**
+	 * This sets whether the window can maximise.
+	 * 
+	 * @param canMaximise
+	 *            - The new setting.
+	 */
+	@Unimplimented
 	public void setCanMaximise(boolean canMaximise) {
 		this.canMaximise = canMaximise;
 	}
 
+	/**
+	 * This returns whether the window can close.
+	 * 
+	 * @return {@link Boolean} - whether the window can close.
+	 */
 	public boolean canClose() {
 		return canClose;
 	}
 
+	/**
+	 * This sets whether the window can close.
+	 * 
+	 * @param canClose
+	 *            - The new setting.
+	 */
 	public void setCanClose(boolean canClose) {
 		this.canClose = canClose;
 	}
 
+	/**
+	 * This returns whether the window is minimised.
+	 * 
+	 * @return {@link Boolean} - whether the window is minimised.
+	 */
+	@Unimplimented
 	public boolean isMinimised() {
 		return isMinimised;
 	}
 
+	/**
+	 * This sets whether the window is minimised
+	 * 
+	 * @param isMinimised
+	 *            - the new setting.
+	 */
+	@Unimplimented
 	public void setMinimised(boolean isMinimised) {
 		this.isMinimised = isMinimised;
 	}
 
+	/**
+	 * This returns whether the window is maximised.
+	 * 
+	 * @return {@link Boolean} - whether the window is maximised.
+	 */
+	@Unimplimented
 	public boolean isMaximised() {
 		return isMaximised;
 	}
 
+	/**
+	 * This sets whether the window is maximised
+	 * 
+	 * @param isMinimised
+	 *            - the new setting.
+	 */
+	@Unimplimented
 	public void setMaximised(boolean isMaximised) {
 		this.isMaximised = isMaximised;
 	}
 
+	/**
+	 * This returns whether the window is closed.
+	 * 
+	 * @return {@link Boolean} - whether the window is closed.
+	 */
 	public boolean isClosed() {
 		return isClosed;
 	}
 
+	/**
+	 * This sets whether the window is closed
+	 * 
+	 * @param isMinimised
+	 *            - the new setting.
+	 */
 	public void setClosed(boolean isClosed) {
 		this.isClosed = isClosed;
 	}
 
+	/**
+	 * This returns the current selected theme.
+	 * 
+	 * @return {@link Themes} - the chosen theme
+	 */
 	public Themes getTheme() {
 		return chosenTheme;
 	}
 
+	/**
+	 * This sets the new theme.
+	 * 
+	 * @param theme
+	 *            - the new setting.
+	 */
 	public void setTheme(Themes theme) {
 		this.chosenTheme = theme;
 	}
 
+	/**
+	 * This returns the current size of the Window.
+	 * 
+	 * @return {@link java.awt.Dimension} - The current size.
+	 */
 	public Dimension getSize() {
 		return size;
 	}
 
+	/**
+	 * This sets the size of the Window.
+	 * 
+	 * @param size
+	 *            - the new setting
+	 */
 	public void setSize(Dimension size) {
 		this.size = size;
 	}
 
+	/**
+	 * This returns the current location.
+	 * 
+	 * @return {@link Coordinate} - The current location.
+	 */
 	public Coordinate getLocation() {
 		return location;
 	}
 
+	/**
+	 * This sets the location of the window.
+	 * 
+	 * @param location
+	 *            - The new setting.
+	 */
 	public void setLocation(Coordinate location) {
 		for (Button button : buttons) {
 			button.setLocation(new Coordinate(button.getOrigin(), button.getParent().getLocation()));
@@ -131,28 +250,64 @@ public class Window extends Component {
 		this.location = location;
 	}
 
+	/**
+	 * This returns the Icon parent.
+	 * 
+	 * @return {@link Icon} - The parent icon.
+	 */
 	public Icon getParent() {
 		return parent;
 	}
 
+	/**
+	 * This sets the parent icon.
+	 * 
+	 * @param parent
+	 *            - the new setting.
+	 */
 	public void setParentIcon(Icon parent) {
 		this.parent = parent;
 	}
 
+	/**
+	 * This adds a button to the window.
+	 * 
+	 * @param button
+	 *            - The new button.
+	 */
 	public void addButton(Button button) {
 		buttonNames.add(button.getText());
 		buttons.add(button);
 	}
 
+	/**
+	 * This removes a button from the window.
+	 * 
+	 * @param button
+	 *            - The button.
+	 */
 	public void removeButton(Button button) {
 		buttonNames.remove(button.getText());
 		buttons.remove(button);
 	}
 
+	/**
+	 * This gets a button from the name.
+	 * 
+	 * @param text
+	 *            - The name.
+	 * @return {@link Button} - The button
+	 */
 	public Button getButton(String text) {
 		return buttons.get(buttonNames.indexOf(text));
 	}
 
+	/**
+	 * This caused the Window to re-draw istelf
+	 * 
+	 * @param g
+	 *            - The graphics to draw the window to.
+	 */
 	public void draw(Graphics g) {
 		if (!isClosed) {
 			{// Top Tab Drawing
@@ -230,6 +385,14 @@ public class Window extends Component {
 	public void nullEvent(Coordinate location) {
 	}
 
+	/**
+	 * This is called when the window is currently focused and a key is pressed.
+	 * 
+	 * @param keyCode
+	 *            - The key code.
+	 * @param keyChar
+	 *            - This key char.
+	 */
 	public void keyEvent(int keyCode, char keyChar) {
 		System.out.println("Recieved: " + keyChar + "\t" + keyCode + "\t" + KeyEvent.getKeyText(keyCode));
 	}

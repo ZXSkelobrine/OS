@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 
 import com.github.ZXSkelobrine.OS.components.basic.Component;
 import com.github.ZXSkelobrine.OS.components.basic.embeded.Window;
+import com.github.ZXSkelobrine.OS.misc.Unimplimented;
 import com.github.ZXSkelobrine.OS.variables.Coordinate;
 
 public class Button extends Component {
@@ -58,34 +59,78 @@ public class Button extends Component {
 		this.text = "";
 	}
 
+	/**
+	 * This returns the current location.
+	 * 
+	 * @return {@link Coordinate} - The current location.
+	 */
 	public Coordinate getLocation() {
 		return location;
 	}
 
+	/**
+	 * This returns the original location.
+	 * 
+	 * @return {@link Coordinate} - The original location.
+	 */
 	public Coordinate getOrigin() {
 		return origin;
 	}
 
+	/**
+	 * This sets the location of the Button.
+	 * 
+	 * @param location
+	 *            - The new setting.
+	 */
 	public void setLocation(Coordinate location) {
 		this.location = location;
 	}
 
+	/**
+	 * This returns the Window parent.
+	 * 
+	 * @return {@link Window} - The parent window.
+	 */
 	public Window getParent() {
 		return parent;
 	}
 
+	/**
+	 * This sets the parent {@link Window}.
+	 * 
+	 * @param parent
+	 *            - the new setting.
+	 */
 	public void setParent(Window newParent) {
 		parent = newParent;
 	}
 
+	/**
+	 * This returns whether the buttons is important
+	 * 
+	 * @return {@link Boolean} - whether the button is important.
+	 */
 	public boolean isImportant() {
 		return important;
 	}
 
+	/**
+	 * This sets the current importance of the button.
+	 * 
+	 * @param isImportant
+	 *            - the new setting
+	 */
+	@Unimplimented
 	public void setImportance(boolean isImportant) {
 		important = isImportant;
 	}
 
+	/**
+	 * This returns the current used images.
+	 * 
+	 * @return {@link BufferedImage}[] - The array of images.
+	 */
 	public BufferedImage[] getImages() {
 		return images;
 	}
@@ -104,10 +149,20 @@ public class Button extends Component {
 		g.drawString(text, location.getX() + size.width / 2, location.getY() + size.height / 2);
 	}
 
+	/**
+	 * This returns the current text.
+	 * 
+	 * @return {@link String} - the current text.
+	 */
 	public String getText() {
 		return text;
 	}
 
+	/**
+	 * This returns the current size of the Button.
+	 * 
+	 * @return {@link java.awt.Dimension} - The current size.
+	 */
 	public Dimension getSize() {
 		return size;
 	}

@@ -11,51 +11,65 @@ import com.github.ZXSkelobrine.OS.variables.Coordinate;
 public class Icon extends Component {
 	private final int CLOSED = 0;
 	private final int HOVER = 1;
-	// private final int MINIMISED = 2;
 	private final int OPEN = 3;
 	private BufferedImage[] images;
 	private int currentImage;
 	private Coordinate location;
-	private Graphics graphics;
 	private int WxH;
 	private String name;
 	private Window parent;
 
-	public Icon(Coordinate coord, BufferedImage[] icon, Graphics g, int size, String text, Window parent) {
+	public Icon(Coordinate coord, BufferedImage[] icon, int size, String text, Window parent) {
 		super(text);
 		images = icon;
 		location = coord;
-		graphics = g;
 		WxH = size;
 		name = text;
 		this.parent = parent;
 	}
 
-	public Icon(Coordinate coord, BufferedImage[] icon, Graphics g, int size, String text) {
+	public Icon(Coordinate coord, BufferedImage[] icon, int size, String text) {
 		super(text);
 		images = icon;
 		location = coord;
-		graphics = g;
 		WxH = size;
 		name = text;
 	}
 
-	public void draw() {
-		graphics.drawImage(images[currentImage], location.getX(), location.getY(), WxH, WxH, null);
-	}
-
+	/**
+	 * This causes the Icon to re-draw itself on given graphics.
+	 * 
+	 * @param g
+	 *            - The {@link Graphics} to draw on.
+	 */
 	public void draw(Graphics g) {
 		g.drawImage(images[currentImage], location.getX(), location.getY(), WxH, WxH, null);
 	}
 
+	/**
+	 * This returns the current location.
+	 * 
+	 * @return {@link #Coordinate} - The current location.
+	 */
 	public Coordinate getLocation() {
 		return location;
 	}
 
+	/**
+	 * This returns the current name.
+	 * 
+	 * @return {@link String} - the current name.
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * This sets a new parent window
+	 * 
+	 * @param parent
+	 *            - the new setting.
+	 */
 	public void setParent(Window parent) {
 		this.parent = parent;
 	}
@@ -84,6 +98,9 @@ public class Icon extends Component {
 		}
 	}
 
+	/**
+	 * This is called when the parent window is closed.
+	 */
 	public void closeEvent() {
 		SystemSettings.setCurrentFocus(null);
 		currentImage = CLOSED;
