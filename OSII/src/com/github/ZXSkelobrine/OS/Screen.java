@@ -76,17 +76,18 @@ public class Screen extends JFrame {
 		frame.addWindow(new Window("Settings", true, true, true, Themes.Dark, new Dimension(1000, 500), new Coordinate(100, 100), frame.getIcon("Settings")));
 		frame.getIcon("Settings").setParent(frame.getWindow("Settings"));
 		frame.getWindow("Settings").addButton(new Button(new Coordinate(100, 100), Loader.desktopIcons, frame.getWindow("Settings"), true, new Dimension(50, 50), Color.BLUE, Color.BLACK, "Test", null));
+
 		frame.addWindow(new Window("Display Settings", true, false, true, Themes.Light, new Dimension(750, 350), new Coordinate(100, 100), null));
-		frame.getWindow("Display Settings").addButton(new Button(new Coordinate(30, 30), Loader.desktopIcons, frame.getWindow("Display Settings"), false, new Dimension(50, 50), Color.BLACK, Color.WHITE, "Choose File", null));
+		frame.getWindow("Display Settings").addButton(new Button(new Coordinate(30, 30), Loader.folderIcons, frame.getWindow("Display Settings"), false, new Dimension(50, 50), Color.BLACK, Color.WHITE, "Choose File", null));
 		frame.getWindow("Settings").getButton("Test").setClickEvent(new ButtonClickEvent() {
 			@Override
-			public void ClickEvent() {
+			public void clickEvent() {
 				Screen.frame.getWindow("Display Settings").setClosed(false);
 			}
 		});
 		frame.getWindow("Display Settings").getButton("Choose File").setClickEvent(new ButtonClickEvent() {
 			@Override
-			public void ClickEvent() {
+			public void clickEvent() {
 				JFileChooser jfc = new JFileChooser();
 				jfc.showOpenDialog(null);
 				File img = jfc.getSelectedFile();

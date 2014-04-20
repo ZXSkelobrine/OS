@@ -183,7 +183,7 @@ public class Button extends Component {
 	@Override
 	public void clickEvent(Coordinate location) {
 		currentImage = OPEN;
-		if(buttonClickEvent != null)buttonClickEvent.ClickEvent();
+		if(buttonClickEvent != null)buttonClickEvent.clickEvent();
 	}
 
 	@Override
