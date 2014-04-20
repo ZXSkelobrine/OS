@@ -30,8 +30,8 @@ public class Window extends Component {
 	private Dimension size;
 	private Coordinate location;
 	private Icon parent;
-	private List<Button> buttons = new ArrayList<Button>();
-	private List<String> buttonNames = new ArrayList<String>();
+	private List<Component> components = new ArrayList<Component>();
+	private List<String> componentNames = new ArrayList<String>();
 
 	public Window(String title, boolean canClose, boolean canMaximise, boolean canMinimise, Themes chosenTheme, Dimension size, Coordinate location, Icon parent) {
 		super(title);
@@ -244,8 +244,11 @@ public class Window extends Component {
 	 *            - The new setting.
 	 */
 	public void setLocation(Coordinate location) {
-		for (Button button : buttons) {
-			button.setLocation(new Coordinate(button.getOrigin(), button.getParent().getLocation()));
+		for (Component component : components) {
+			if (component instanceof Button) {
+				Button button = (Button) component;
+				button.setLocation(new Coordinate(button.getOrigin(), button.getParent().getLocation()));
+			}
 		}
 		this.location = location;
 	}
@@ -275,9 +278,9 @@ public class Window extends Component {
 	 * @param button
 	 *            - The new button.
 	 */
-	public void addButton(Button button) {
-		buttonNames.add(button.getName());
-		buttons.add(button);
+	public void addComponent(Component component) {
+		componentNames.add(component.getName());
+		components.add(component);
 	}
 
 	/**
@@ -286,9 +289,9 @@ public class Window extends Component {
 	 * @param button
 	 *            - The button.
 	 */
-	public void removeButton(Button button) {
-		buttonNames.remove(button.getName());
-		buttons.remove(button);
+	public void removeComponent(Component component) {
+		componentNames.remove(component.getName());
+		components.remove(component);
 	}
 
 	/**
@@ -298,8 +301,8 @@ public class Window extends Component {
 	 *            - The name.
 	 * @return {@link Button} - The button
 	 */
-	public Button getButton(String text) {
-		return buttons.get(buttonNames.indexOf(text));
+	public Component getComponent(String text) {
+		return components.get(componentNames.indexOf(text));
 	}
 
 	/**
@@ -308,6 +311,7 @@ public class Window extends Component {
 	 * @param g
 	 *            - The graphics to draw the window to.
 	 */
+	@Override
 	public void draw(Graphics g) {
 		if (!isClosed) {
 			{// Top Tab Drawing
@@ -339,8 +343,8 @@ public class Window extends Component {
 				g.fillRoundRect(location.getX() + (size.width / 2), location.getY(), 7, 7, 5, 5);
 			}// End Close/Minimise/Maximise Buttons
 			{// Buttons
-				for (Button button : buttons) {
-					button.draw(g);
+				for (Component component : components) {
+					component.draw(g);
 				}
 			}// End Buttons
 		}
@@ -359,12 +363,15 @@ public class Window extends Component {
 
 			}
 		}
-		for (Button button : buttons) {
-			if (location.getX() > button.getLocation().getX()) {
-				if (location.getY() > button.getLocation().getY()) {
-					if (location.getX() < button.getLocation().getX() + (button.getSize().width + (button.getSize().width / 2))) {
-						if (location.getY() < button.getLocation().getY() + (button.getSize().height + (button.getSize().height / 2))) {
-							button.clickEvent(location);
+		for (Component component : components) {
+			if (component instanceof Button) {
+				Button button = (Button) component;
+				if (location.getX() > button.getLocation().getX()) {
+					if (location.getY() > button.getLocation().getY()) {
+						if (location.getX() < button.getLocation().getX() + (button.getSize().width + (button.getSize().width / 2))) {
+							if (location.getY() < button.getLocation().getY() + (button.getSize().height + (button.getSize().height / 2))) {
+								button.clickEvent(location);
+							}
 						}
 					}
 				}
@@ -374,12 +381,17 @@ public class Window extends Component {
 
 	@Override
 	public void hoverEvent(Coordinate location) {
-		for (Button button : buttons) {
-			if (location.getX() > button.getLocation().getX()) {
-				if (location.getY() > button.getLocation().getY()) {
-					if (location.getX() < button.getLocation().getX() + (button.getSize().width + (button.getSize().width / 2))) {
-						if (location.getY() < button.getLocation().getY() + (button.getSize().height + (button.getSize().height / 2))) {
-							button.hoverEvent(location);
+		for (Component component : components) {
+			if (component instanceof Button) {
+				Button button = (Button) component;
+				if (location.getX() > button.getLocation().getX()) {
+					if (location.getY() > button.getLocation().getY()) {
+						if (location.getX() < button.getLocation().getX() + (button.getSize().width + (button.getSize().width / 2))) {
+							if (location.getY() < button.getLocation().getY() + (button.getSize().height + (button.getSize().height / 2))) {
+								button.hoverEvent(location);
+							} else {
+								button.nullEvent(location);
+							}
 						} else {
 							button.nullEvent(location);
 						}
@@ -389,8 +401,6 @@ public class Window extends Component {
 				} else {
 					button.nullEvent(location);
 				}
-			} else {
-				button.nullEvent(location);
 			}
 		}
 	}

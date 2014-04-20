@@ -1,10 +1,18 @@
 package com.github.ZXSkelobrine.OS.components.basic;
 
+import java.awt.Graphics;
+
 import com.github.ZXSkelobrine.OS.variables.Coordinate;
 
 public class Component {
 
 	public String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public Coordinate location;
 
 	public Component(String name) {
 		this.name = name;
@@ -58,5 +66,17 @@ public class Component {
 	 */
 	public void out(String message) {
 		System.out.println(name + ": " + message);
+	}
+
+	public void draw(Graphics g) {
+
+	}
+
+	public Coordinate getLocation() {
+		return location;
+	}
+
+	public void setLocation(Coordinate location) {
+		this.location = location;
 	}
 }

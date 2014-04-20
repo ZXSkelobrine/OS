@@ -42,6 +42,7 @@ public class Icon extends Component {
 	 * @param g
 	 *            - The {@link Graphics} to draw on.
 	 */
+	@Override
 	public void draw(Graphics g) {
 		g.drawImage(images[currentImage], location.getX(), location.getY(), WxH, WxH, null);
 	}

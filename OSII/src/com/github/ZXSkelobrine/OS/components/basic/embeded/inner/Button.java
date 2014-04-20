@@ -140,6 +140,7 @@ public class Button extends Component {
 		return images;
 	}
 
+	@Override
 	public void draw(Graphics g) {
 		int[] x = new int[] { location.getX(), location.getX() + size.width, location.getX() + size.width, location.getX() };
 		int[] y = new int[] { location.getY(), location.getY(), location.getY() + size.height, location.getY() + size.height };
@@ -183,7 +184,7 @@ public class Button extends Component {
 	@Override
 	public void clickEvent(Coordinate location) {
 		currentImage = OPEN;
-		if(buttonClickEvent != null)buttonClickEvent.clickEvent();
+		if (buttonClickEvent != null) buttonClickEvent.clickEvent();
 	}
 
 	@Override
