@@ -20,7 +20,6 @@ public class Frame extends JComponent {
 	public List<String> desktopIconNames = new ArrayList<String>();
 	public List<Window> openWindows = new ArrayList<Window>();
 	public List<String> openWindowNames = new ArrayList<>();
-	public BufferedImage background = Loader.defaultBackground;
 	public Graphics g;
 
 	public Frame() {
@@ -34,7 +33,7 @@ public class Frame extends JComponent {
 	protected void paintComponent(Graphics g) {
 		this.g = g;
 		g.setColor(Color.WHITE);
-		g.drawImage(background, 0, 0, null);
+		g.drawImage(Loader.defaultBackground, 0, 0, null);
 		g.drawImage(Drawer.render(getWidth(), getHeight(), this), 0, 0, null);
 		super.paintComponent(g);
 	}

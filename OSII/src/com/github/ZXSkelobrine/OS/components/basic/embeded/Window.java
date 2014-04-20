@@ -46,7 +46,7 @@ public class Window extends Component {
 		this.isMinimised = false;
 		this.location = location;
 		this.parent = parent;
-		parent.closeEvent();
+		if (this.parent != null) parent.closeEvent();
 	}
 
 	/**
@@ -276,7 +276,7 @@ public class Window extends Component {
 	 *            - The new button.
 	 */
 	public void addButton(Button button) {
-		buttonNames.add(button.getText());
+		buttonNames.add(button.getName());
 		buttons.add(button);
 	}
 
@@ -287,7 +287,7 @@ public class Window extends Component {
 	 *            - The button.
 	 */
 	public void removeButton(Button button) {
-		buttonNames.remove(button.getText());
+		buttonNames.remove(button.getName());
 		buttons.remove(button);
 	}
 
@@ -353,7 +353,7 @@ public class Window extends Component {
 				if (location.getX() < this.location.getX() + (size.width / 2) + 10) {
 					if (location.getY() < this.location.getY() + 30) {
 						isClosed = true;
-						parent.closeEvent();
+						if (parent != null) parent.closeEvent();
 					}
 				}
 
@@ -374,11 +374,30 @@ public class Window extends Component {
 
 	@Override
 	public void hoverEvent(Coordinate location) {
+		for (Button button : buttons) {
+			if (location.getX() > button.getLocation().getX()) {
+				if (location.getY() > button.getLocation().getY()) {
+					if (location.getX() < button.getLocation().getX() + (button.getSize().width + (button.getSize().width / 2))) {
+						if (location.getY() < button.getLocation().getY() + (button.getSize().height + (button.getSize().height / 2))) {
+							button.hoverEvent(location);
+						} else {
+							button.nullEvent(location);
+						}
+					} else {
+						button.nullEvent(location);
+					}
+				} else {
+					button.nullEvent(location);
+				}
+			} else {
+				button.nullEvent(location);
+			}
+		}
 	}
 
 	@Override
 	public void dragEvent(Coordinate location) {
-		setLocation(location);
+		if (this.equals(SystemSettings.getCurrentFocus())) setLocation(location);
 	}
 
 	@Override

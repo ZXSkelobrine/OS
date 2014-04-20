@@ -4,7 +4,7 @@ import com.github.ZXSkelobrine.OS.variables.Coordinate;
 
 public class Component {
 
-	String name;
+	public String name;
 
 	public Component(String name) {
 		this.name = name;

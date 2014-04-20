@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 
 import com.github.ZXSkelobrine.OS.components.basic.Component;
 import com.github.ZXSkelobrine.OS.components.basic.embeded.Window;
+import com.github.ZXSkelobrine.OS.misc.ButtonClickEvent;
 import com.github.ZXSkelobrine.OS.misc.Unimplimented;
 import com.github.ZXSkelobrine.OS.variables.Coordinate;
 
@@ -24,6 +25,10 @@ public class Button extends Component {
 	private String text;
 	private Coordinate origin;
 	private int currentImage = 0;
+	private final int CLOSED = 0;
+	private final int HOVER = 1;
+	private final int OPEN = 3;
+	private ButtonClickEvent buttonClickEvent;
 
 	public Button(Coordinate location, BufferedImage[] images, Window parent, boolean important, Dimension size, Color border, Color textColor, String text) {
 		super(text);
@@ -158,6 +163,10 @@ public class Button extends Component {
 		return text;
 	}
 
+	public String getName() {
+		return super.name;
+	}
+
 	/**
 	 * This returns the current size of the Button.
 	 * 
@@ -167,9 +176,14 @@ public class Button extends Component {
 		return size;
 	}
 
+	public void setClickEvent(ButtonClickEvent event) {
+		this.buttonClickEvent = event;
+	}
+
 	@Override
 	public void clickEvent(Coordinate location) {
-
+		currentImage = OPEN;
+		if(buttonClickEvent != null)buttonClickEvent.ClickEvent();
 	}
 
 	@Override
@@ -178,12 +192,12 @@ public class Button extends Component {
 
 	@Override
 	public void hoverEvent(Coordinate location) {
-
+		currentImage = HOVER;
 	}
 
 	@Override
 	public void nullEvent(Coordinate location) {
-
+		currentImage = CLOSED;
 	}
 
 }
