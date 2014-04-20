@@ -1,5 +1,6 @@
 package com.github.ZXSkelobrine.OS;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
@@ -10,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import com.github.ZXSkelobrine.OS.components.basic.Frame;
 import com.github.ZXSkelobrine.OS.components.basic.embeded.Icon;
 import com.github.ZXSkelobrine.OS.components.basic.embeded.Window;
+import com.github.ZXSkelobrine.OS.components.basic.embeded.inner.Button;
 import com.github.ZXSkelobrine.OS.input.Keyboard;
 import com.github.ZXSkelobrine.OS.input.Mouse;
 import com.github.ZXSkelobrine.OS.misc.Loader;
@@ -66,6 +68,8 @@ public class Screen extends JFrame {
 	public void done() {
 		frame.addIcon(new Icon(new Coordinate(50, 50), Loader.desktopIcons, frame.getGraphics(), 50, "Settings"));
 		frame.addWindow(new Window("Settings", true, true, true, Themes.Dark, new Dimension(1000, 500), new Coordinate(100, 100), frame.getIcon("Settings")));
+		frame.getIcon("Settings").setParent(frame.getWindow("Settings"));
+		frame.getWindow("Settings").addButton(new Button(new Coordinate(100, 100), Loader.desktopIcons, frame.getWindow("Settings"), true, new Dimension(50, 50), Color.BLUE, Color.BLACK, "Test", null));
 	}
 
 }

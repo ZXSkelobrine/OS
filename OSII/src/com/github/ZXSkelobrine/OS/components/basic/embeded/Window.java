@@ -10,12 +10,13 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.ZXSkelobrine.OS.components.basic.Component;
 import com.github.ZXSkelobrine.OS.components.basic.embeded.inner.Button;
 import com.github.ZXSkelobrine.OS.misc.SystemSettings;
 import com.github.ZXSkelobrine.OS.variables.Coordinate;
 import com.github.ZXSkelobrine.OS.variables.Themes;
 
-public class Window {
+public class Window extends Component {
 
 	private String title;
 	private boolean canMinimise;
@@ -32,6 +33,7 @@ public class Window {
 	private List<String> buttonNames = new ArrayList<String>();
 
 	public Window(String title, boolean canClose, boolean canMaximise, boolean canMinimise, Themes chosenTheme, Dimension size, Coordinate location, Icon parent) {
+		super(title);
 		this.title = title;
 		this.canClose = canClose;
 		this.canMaximise = canMaximise;
@@ -123,6 +125,9 @@ public class Window {
 	}
 
 	public void setLocation(Coordinate location) {
+		for (Button button : buttons) {
+			button.setLocation(new Coordinate(button.getOrigin(), button.getParent().getLocation()));
+		}
 		this.location = location;
 	}
 
@@ -199,18 +204,30 @@ public class Window {
 
 			}
 		}
+		for (Button button : buttons) {
+			if (location.getX() > button.getLocation().getX()) {
+				if (location.getY() > button.getLocation().getY()) {
+					if (location.getX() < button.getLocation().getX() + (button.getSize().width + (button.getSize().width / 2))) {
+						if (location.getY() < button.getLocation().getY() + (button.getSize().height + (button.getSize().height / 2))) {
+							button.clickEvent(location);
+						}
+					}
+				}
+			}
+		}
 	}
 
-	@SuppressWarnings("unused")
-	private void out(String message) {
-		System.out.println(title + ": " + message);
+	@Override
+	public void hoverEvent(Coordinate location) {
 	}
 
-	public void hoverEvent() {
-	}
-
+	@Override
 	public void dragEvent(Coordinate location) {
 		setLocation(location);
+	}
+
+	@Override
+	public void nullEvent(Coordinate location) {
 	}
 
 	public void keyEvent(int keyCode, char keyChar) {

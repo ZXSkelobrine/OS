@@ -8,34 +8,62 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 
+import com.github.ZXSkelobrine.OS.components.basic.Component;
 import com.github.ZXSkelobrine.OS.components.basic.embeded.Window;
 import com.github.ZXSkelobrine.OS.variables.Coordinate;
 
-public class Button {
+public class Button extends Component {
 	private Coordinate location;
 	private BufferedImage[] images;
 	private Window parent;
 	private boolean important;
 	private Dimension size;
 	private Color border;
-	private Color fill;
 	private Color textColor;
 	private String text;
+	private Coordinate origin;
+	private int currentImage = 0;
 
-	public Button(Coordinate location, BufferedImage[] images, Window parent, boolean important, Dimension size, Color border, Color fill, Color textColor, String text) {
+	public Button(Coordinate location, BufferedImage[] images, Window parent, boolean important, Dimension size, Color border, Color textColor, String text) {
+		super(text);
 		this.location = new Coordinate(location, parent.getLocation());
 		this.images = images;
 		this.parent = parent;
 		this.important = important;
 		this.size = size;
-		this.border = border;
-		this.fill = fill;
+		if (!important) {
+			this.border = border;
+		} else {
+			this.border = Color.RED.darker().darker();
+		}
 		this.textColor = textColor;
 		this.text = text;
+		this.origin = location;
+	}
+
+	public Button(Coordinate location, BufferedImage[] images, Window parent, boolean important, Dimension size, Color border, Color textColor, String name, Object nullMe) {
+		super(name);
+		this.location = new Coordinate(location, parent.getLocation());
+		this.images = images;
+		this.parent = parent;
+		this.important = important;
+		this.size = size;
+		if (!important) {
+			this.border = border;
+		} else {
+			this.border = Color.RED.darker().darker();
+		}
+		this.textColor = textColor;
+		this.origin = location;
+		this.text = "";
 	}
 
 	public Coordinate getLocation() {
 		return location;
+	}
+
+	public Coordinate getOrigin() {
+		return origin;
 	}
 
 	public void setLocation(Coordinate location) {
@@ -71,14 +99,36 @@ public class Button {
 		g2d.setStroke(new BasicStroke(3));
 		g2d.setColor(border);
 		g2d.drawPolygon(polygon);
-		g.setColor(fill);
-		g.fillPolygon(polygon);
+		g.drawImage(images[currentImage], location.getX(), location.getY(), size.width, size.height, null);
 		g.setColor(textColor);
 		g.drawString(text, location.getX() + size.width / 2, location.getY() + size.height / 2);
 	}
 
 	public String getText() {
 		return text;
+	}
+
+	public Dimension getSize() {
+		return size;
+	}
+
+	@Override
+	public void clickEvent(Coordinate location) {
+
+	}
+
+	@Override
+	public void dragEvent(Coordinate location) {
+	}
+
+	@Override
+	public void hoverEvent(Coordinate location) {
+
+	}
+
+	@Override
+	public void nullEvent(Coordinate location) {
+
 	}
 
 }

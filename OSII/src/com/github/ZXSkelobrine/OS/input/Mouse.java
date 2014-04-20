@@ -18,30 +18,48 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	}
 
 	public void mouseDragged(MouseEvent e) {
+		Coordinate coordinate = new Coordinate(e);
 		for (Window window : Screen.frame.openWindows) {
 			if (e.getX() > window.getLocation().getX()) {
 				if (e.getY() > window.getLocation().getY()) {
 					if (e.getX() < window.getLocation().getX() + window.getSize().width) {
 						if (e.getY() < window.getLocation().getY() + window.getSize().height) {
 							window.dragEvent(new Coordinate(e.getX() - ((window.getSize().width / 2)), e.getY() - ((window.getSize().height / 2))));
+						} else {
+							window.nullEvent(coordinate);
 						}
+					} else {
+						window.nullEvent(coordinate);
 					}
+				} else {
+					window.nullEvent(coordinate);
 				}
+			} else {
+				window.nullEvent(coordinate);
 			}
 		}
 		Screen.frame.repaint();
 	}
 
 	public void mouseMoved(MouseEvent e) {
+		Coordinate coordinate = new Coordinate(e);
 		for (Icon icon : Screen.frame.desktopIcons) {
 			if (e.getX() > icon.getLocation().getX()) {
 				if (e.getY() > icon.getLocation().getY()) {
 					if (e.getX() < icon.getLocation().getX() + 50) {
 						if (e.getY() < icon.getLocation().getY() + 50) {
-							icon.hoverEvent();
+							icon.hoverEvent(coordinate);
+						} else {
+							icon.nullEvent(coordinate);
 						}
+					} else {
+						icon.nullEvent(coordinate);
 					}
+				} else {
+					icon.nullEvent(coordinate);
 				}
+			} else {
+				icon.nullEvent(coordinate);
 			}
 		}
 		for (Window window : Screen.frame.openWindows) {
@@ -49,25 +67,42 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 				if (e.getY() > window.getLocation().getY()) {
 					if (e.getX() < window.getLocation().getX() + window.getSize().width) {
 						if (e.getY() < window.getLocation().getY() + window.getSize().height) {
-							window.hoverEvent();
+							window.hoverEvent(new Coordinate(e));
+						} else {
+							window.nullEvent(coordinate);
 						}
+					} else {
+						window.nullEvent(coordinate);
 					}
+				} else {
+					window.nullEvent(coordinate);
 				}
+			} else {
+				window.nullEvent(coordinate);
 			}
 		}
 		Screen.frame.repaint();
 	}
 
 	public void mouseClicked(MouseEvent e) {
+		Coordinate coordinate = new Coordinate(e);
 		for (Icon icon : Screen.frame.desktopIcons) {
 			if (e.getX() > icon.getLocation().getX()) {
 				if (e.getY() > icon.getLocation().getY()) {
 					if (e.getX() < icon.getLocation().getX() + 50) {
 						if (e.getY() < icon.getLocation().getY() + 50) {
-							icon.clickEvent();
+							icon.clickEvent(coordinate);
+						} else {
+							icon.nullEvent(coordinate);
 						}
+					} else {
+						icon.nullEvent(coordinate);
 					}
+				} else {
+					icon.nullEvent(coordinate);
 				}
+			} else {
+				icon.nullEvent(coordinate);
 			}
 		}
 		for (Window window : Screen.frame.openWindows) {
@@ -76,9 +111,17 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 					if (e.getX() < window.getLocation().getX() + window.getSize().width) {
 						if (e.getY() < window.getLocation().getY() + window.getSize().height) {
 							window.clickEvent(new Coordinate(e));
+						} else {
+							window.nullEvent(coordinate);
 						}
+					} else {
+						window.nullEvent(coordinate);
 					}
+				} else {
+					window.nullEvent(coordinate);
 				}
+			} else {
+				window.nullEvent(coordinate);
 			}
 		}
 		Screen.frame.repaint();
